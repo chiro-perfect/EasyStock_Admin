@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générer Rapport - EasyStock Admin</title>
+    <link rel="stylesheet" href="../../assets/css/dashboard.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Barre latérale (Sidebar) -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <img src="../../assets/images/logo.png" class="logo1">
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="../admin/dashboard.html"><i class="icon-dashboard"></i> Tableau de bord</a></li>
+                    <li><a href="../admin/produits/list.html"><i class="icon-products"></i> Produits</a></li>
+                    <li><a href="../fournisseurs/list.html"><i class="icon-suppliers"></i> Fournisseurs</a></li>
+                    <li><a href="../commandes/list.html"><i class="icon-orders"></i> Commandes</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Contenu principal (Main Content) -->
+        <div class="main-content">
+            <header class="main-header">
+                <div class="header-left">
+                    <span id="currentDate"></span>
+                </div>
+                <div class="header-right">
+                    <span class="user-profile">Admin</span>
+                    <button class="settings-btn" onclick="window.location.href='../admin/settings.html'">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px">
+                            <path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.09-.76-1.71-1.06l-.37-2.65c-.06-.24-.27-.42-.5-.42h-4c-.23 0-.44.18-.5.42l-.37 2.65c-.62.3-1.19.66-1.71 1.06l-2.49-1c-.22-.09-.49 0-.61.22l-2 3.46c-.12.22-.07.49.12.64l2.11 1.65c-.04.32-.07.64-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.09.76 1.71 1.06l.37 2.65c.06.24.27.42.5.42h4c.23 0-.44.18-.5.42l-.37-2.65c-.62-.3-1.19-.66-1.71-1.06l-2.49 1c-.22.09-.49 0-.61-.22l-2-3.46c-.12-.22-.07-.49.12.64l2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/>
+                        </svg>
+                    </button>
+                    <button class="logout-btn" onclick="logout()">Déconnexion</button>
+                </div>
+            </header>
+
+            <div class="content">
+                <h1>Générer un Rapport</h1>
+                
+                <div class="form-container">
+                    <form id="reportForm">
+                        <div class="form-group">
+                            <label for="reportType">Type de Rapport :</label>
+                            <select id="reportType" name="reportType" required>
+                                <option value="">Sélectionner un type</option>
+                                <option value="stock">Rapport de Stock</option>
+                                <option value="sales">Rapport de Ventes</option>
+                                <option value="suppliers">Rapport Fournisseurs</option>
+                                <option value="orders">Rapport Commandes</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="startDate">Date de Début :</label>
+                            <input type="date" id="startDate" name="startDate">
+                        </div>
+                        <div class="form-group">
+                            <label for="endDate">Date de Fin :</label>
+                            <input type="date" id="endDate" name="endDate">
+                        </div>
+                        <button type="submit" class="save-btn">Générer le Rapport</button>
+                    </form>
+                    <div id="formMessage" class="message-area" style="margin-top: 15px;"></div>
+                    <div id="reportOutput" style="margin-top: 20px; white-space: pre-wrap; font-family: monospace; background-color: var(--primary-dark); padding: 15px; border-radius: 8px; border: 1px solid var(--primary-light);">
+                        <!-- Le contenu du rapport généré apparaîtra ici -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/auth/modules/core/dashboard.js"></script>
+    <script src="../../js/reports/generate.js"></script>
+</body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier une Commande - EasyStock Admin</title>
+    <link rel="stylesheet" href="../../assets/css/dashboard.css">
+    <style>
+        /* Styles spécifiques au panier pour cette page, inspirés de new.html et dashboard.css */
+        .form-container {
+            background-color: var(--primary-medium);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-light);
+            margin-top: 20px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--text-light);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group input[type="date"],
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #3a475d;
+            border-radius: 5px;
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            box-sizing: border-box;
+        }
+
+        /* Supprimer les styles "disabled" pour la date spécifiquement, si elle redevient éditable */
+        /* .form-group input[disabled], */
+        /* .form-group select[disabled] { */
+        /* background-color: #2a3a50; */
+        /* opacity: 0.7; */
+        /* cursor: not-allowed; */
+        /* } */
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="number"]:focus,
+        .form-group input[type="date"]:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(0, 221, 255, 0.3);
+        }
+
+        .action-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            color: var(--text-light);
+            margin-right: 10px;
+        }
+
+        .add-to-cart-btn {
+            background-color: var(--primary-light);
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #559db8;
+            transform: translateY(-2px);
+        }
+
+        .save-btn {
+            background-color: var(--success-color);
+        }
+
+        .save-btn:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        .cancel-btn {
+            background-color: var(--danger-color);
+        }
+
+        .cancel-btn:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+        }
+
+        .cart-section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: var(--primary-dark);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border: 2px solid var(--primary-light);
+        }
+        .cart-header {
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 1px solid var(--primary-light);
+            padding-bottom: 10px;
+        }
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            color: var(--text-light);
+        }
+        .cart-table th, .cart-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(102, 176, 203, 0.1);
+        }
+        .cart-table th {
+            background-color: var(--primary-medium);
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85em;
+        }
+        .cart-table tbody tr:hover {
+            background-color: rgba(102, 176, 203, 0.05);
+        }
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .quantity-controls button {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            border: none;
+            border-radius: 5px;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s ease;
+        }
+        .quantity-controls button:hover {
+            background-color: var(--accent);
+            color: var(--text-light);
+        }
+        .quantity-display {
+            padding: 0 8px;
+            min-width: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .remove-item-btn {
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .remove-item-btn:hover {
+            background-color: #c82333;
+        }
+        .cart-total {
+            text-align: right;
+            font-size: 1.4em;
+            font-weight: bold;
+            color: var(--accent);
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid var(--primary-light);
+        }
+        .add-product-to-cart {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px dotted rgba(255, 255, 255, 0.1);
+        }
+        .add-product-to-cart .form-group {
+            flex-grow: 1;
+            margin-bottom: 0;
+        }
+        .add-to-cart-btn-secondary { /* Nouveau style pour le bouton d'ajout secondaire */
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            white-space: nowrap;
+        }
+        .add-to-cart-btn-secondary:hover {
+            background-color: #218838;
+        }
+        .message-area {
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .message-area.success {
+            background-color: rgba(40, 167, 69, 0.2);
+            color: var(--success-color);
+        }
+        .message-area.error {
+            background-color: rgba(220, 53, 69, 0.2);
+            color: var(--danger-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Barre latérale (Sidebar) -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                 <img src="../../assets/images/logo.png" class="logo1" alt="EasyStock Logo">
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="../admin/dashboard.html"><i class="icon-dashboard"></i> Tableau de bord</a></li>
+                    <li><a href="../produits/list.html"><i class="icon-products"></i> Produits</a></li>
+                    <li><a href="../fournisseurs/list.html"><i class="icon-suppliers"></i> Fournisseurs</a></li>
+                    <li class="active"><a href="./list.html"><i class="icon-orders"></i> Commandes</a></li>
+                </ul>
+            </nav>
+        
+        </div>
+
+        <!-- Contenu principal (Main Content) -->
+        <div class="main-content">
+            <header class="main-header">
+                <div class="header-left">
+                    <span id="currentDate"></span>
+                </div>
+                <div class="header-right">
+                    <span class="user-profile" id="userProfileName">Admin</span>
+            
+                    <button class="logout-btn" onclick="logout()">Déconnexion</button>
+                </div>
+            </header>
+
+            <div class="content">
+                <h1>Modifier une Commande</h1>
+                
+                <div class="form-container">
+                    <form id="editOrderForm"> 
+                        <div class="form-group">
+                            <label for="orderId">ID Commande :</label>
+                            <input type="text" id="orderId" name="orderId" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="orderUser">Utilisateur (Client) :</label>
+                            <input type="text" id="orderUser" name="orderUser" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="orderDate">Date de la Commande :</label>
+                            <input type="date" id="orderDate" name="orderDate" required> <!-- 'disabled' a été supprimé ici -->
+                        </div>
+                        <div class="form-group">
+                            <label for="orderStatus">Statut :</label>
+                            <select id="orderStatus" name="orderStatus" required>
+                                <option value="">Chargement des statuts...</option>
+                            </select>
+                        </div>
+
+                        <div class="cart-section">
+                            <h2 class="cart-header">Produits de la Commande</h2>
+                            
+                            <div class="data-table-container" style="padding: 0; background: none; border: none; box-shadow: none;">
+                                <table class="cart-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Produit</th>
+                                            <th>Prix Unitaire</th>
+                                            <th>Quantité</th>
+                                            <th>Sous-Total</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="orderProductsTableBody">
+                                        <!-- Les produits de la commande seront ajoutés ici par JS -->
+                                        <tr>
+                                            <td colspan="5" style="text-align: center; color: var(--primary-light);">Chargement des produits...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="cart-total" id="cartTotal">
+                                Total de la commande : 0.00 €
+                            </div>
+
+                            <h3 style="color: var(--primary-light); margin-top: 30px;">Ajouter ou Modifier des Produits</h3>
+                            <div class="add-product-to-cart">
+                                <div class="form-group" style="flex-basis: 70%;">
+                                    <label for="productIdToAdd">Produit :</label>
+                                    <select id="productIdToAdd" name="productIdToAdd">
+                                        <option value="">Chargement des produits...</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" style="flex-basis: 30%;">
+                                    <label for="productQuantityToAdd">Quantité :</label>
+                                    <input type="number" id="productQuantityToAdd" name="productQuantityToAdd" min="1" value="1" required>
+                                </div>
+                                <button type="button" id="addProductBtn" class="action-btn add-to-cart-btn-secondary">Ajouter au panier</button>
+                            </div>
+
+                        </div>
+
+                        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 30px;">
+                            <button type="submit" class="action-btn save-btn" style="flex-grow: 1;">Mettre à Jour la Commande</button>
+                            <button type="button" class="action-btn cancel-btn" onclick="window.location.href='../commandes/list.html'" style="flex-grow: 1;">Annuler</button>
+                        </div>
+                    </form>
+                    <div id="formMessage" class="message-area" style="margin-top: 15px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../js/commandes/edit.js"></script>
+</body>
+</html>

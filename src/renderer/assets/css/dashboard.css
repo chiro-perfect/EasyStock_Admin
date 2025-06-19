@@ -1,0 +1,1165 @@
+/* src/renderer/assets/css/dashboard.css */
+
+/* --- Import de la nouvelle police "Oxanium" --- */
+@import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;500;600;700&display=swap');
+
+/* --- Variables de Couleurs Globales (Harmonisées) --- */
+:root {
+    --primary-dark: #0b162c;    /* Couleur principale sombre pour le fond */
+    --primary-medium: #1c2942;  /* Couleur moyenne pour les cartes/conteneurs */
+    --primary-light: #66b0cb;   /* Couleur claire pour les accents subtils */
+    --accent: #00ddff;          /* Couleur d'accentuation (bleu vif) pour les éléments clés et interactivité */
+    --text-light: #ffffff;      /* Texte clair sur fond sombre */
+    --text-dark: #333333;       /* Texte sombre (si utilisé sur fond clair) */
+
+    /* Couleurs pour le bouton de déconnexion */
+    --logout-red-base: #dc3545; /* Rouge discret */
+    --logout-red-hover: #c82333; /* Rouge plus foncé au survol */
+
+    /* Ombres et Transitions */
+    --shadow-light: 0 5px 15px rgba(0, 0, 0, 0.2); /* Ombre générale pour les conteneurs */
+    --transition-speed: 0.3s; /* Vitesse de transition standard */
+    --transition-fast: 0.15s; /* Vitesse de transition plus rapide pour les effets de clic */
+
+    /* Couleurs pour les messages et badges de statut */
+    --success-color: #28a745;   /* Vert pour succès/livrée */
+    --danger-color: #dc3545;    /* Rouge pour erreur/annulée */
+    --warning-color: #ffc107;   /* Jaune/Orange pour avertissement/en attente */
+    --info-color: #17a2b8;      /* Bleu clair pour information/en cours */
+
+    /* Couleurs des boutons d'action spécifiques dans les tableaux */
+    --edit-button-start: #00bcd4; /* Bleu sarcelle début dégradé */
+    --edit-button-end: #008c9e;   /* Bleu sarcelle fin dégradé (plus sombre) */
+    --delete-button-start: #ef476f; /* Rouge vif début dégradé */
+    --delete-button-end: #d13a5f;   /* Rouge vif fin dégradé (plus sombre) */
+
+    /* Ombres personnalisées pour les boutons */
+    --button-shadow-light: 0 4px 12px rgba(0, 0, 0, 0.25);
+    --button-shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.4);
+
+    /* Text shadow for technological look */
+    --text-shadow-glow: 0 0 8px rgba(0, 221, 255, 0.5); /* Léger halo pour le texte techno */
+}
+
+/* --- Animations --- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Styles Généraux du Corps et du Conteneur de l'Application --- */
+body {
+    font-family: 'Oxanium', sans-serif; /* Nouvelle police technologique et élégante */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    min-height: 100vh; /* Assure que le body prend toute la hauteur de la vue */
+    background: radial-gradient(circle at top left, #1a2a4b, var(--primary-dark) 70%); /* Fond dégradé subtil */
+    color: var(--text-light); /* Texte clair par défaut */
+    line-height: 1.6;
+    align-items: center; /* Centre verticalement l'app-container */
+    justify-content: center; /* Centre horizontalement l'app-container */
+}
+
+.app-container {
+    display: flex;
+    width: 95vw; /* 95% de la largeur de la vue */
+    max-width: 1400px; /* Limite la largeur sur très grands écrans */
+    height: 95vh; /* 95% de la hauteur de la vue */
+    max-height: 900px; /* Limite la hauteur sur très grands écrans */
+    border-radius: 20px; /* Coins très arrondis pour un look moderne */
+    overflow: hidden; /* Important pour que les éléments enfants respectent le border-radius */
+    box-shadow: var(--shadow-light); /* Ombre subtile */
+    background-color: var(--primary-medium); /* Couleur de fond pour le cadre de l'application */
+}
+
+/* --- Sidebar (Barre Latérale) --- */
+.sidebar {
+    width: 250px; /* Largeur fixe pour la sidebar */
+    background-color: var(--primary-medium);
+    padding: 20px 0;
+    box-shadow: var(--shadow-light); /* Utilise la variable d'ombre */
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0; /* Empêche la sidebar de rétrécir */
+    overflow-y: auto; /* Permet le défilement si le contenu dépasse */
+}
+
+.sidebar-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Ligne de séparation subtile */
+}
+
+.sidebar-header .logo1 {
+    width: 170px; /* Taille du logo ajustée */
+    height: auto;
+    border-radius: 8px; /* Coins arrondis pour le logo */
+    max-width: 90%;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-nav ul li {
+    margin-bottom: 12px; /* Espacement légèrement augmenté entre les éléments de la nav */
+}
+
+.sidebar-nav ul li a {
+    display: flex;
+    align-items: center;
+    padding: 14px 20px; /* Padding légèrement augmenté */
+    color: var(--text-light);
+    text-decoration: none;
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, transform var(--transition-fast) ease;
+    border-radius: 10px; /* Coins plus arrondis pour les liens de navigation */
+    margin: 0 10px; /* Marge latérale */
+    font-size: 1.05em; /* Taille de police légèrement plus grande */
+    font-weight: 500; /* Légèrement plus gras pour la lisibilité */
+    letter-spacing: 0.5px; /* Espacement subtil pour le look techno */
+}
+
+.sidebar-nav ul li a:hover {
+    background-color: var(--primary-dark); /* Fond plus sombre au survol */
+    color: var(--accent); /* Texte accentué au survol */
+    transform: translateX(5px); /* Léger décalage vers la droite */
+    box-shadow: 0 4px 10px rgba(0, 221, 255, 0.1); /* Ombre subtile au survol */
+}
+
+.sidebar-nav ul li.active a {
+    background-color: var(--primary-dark); /* Fond actif */
+    color: var(--accent); /* Texte accentué actif */
+    font-weight: 600; /* Plus gras pour l'état actif */
+    border-left: 4px solid var(--accent); /* Barre d'accentuation à gauche */
+    padding-left: 16px; /* Ajuste le padding pour compenser la bordure */
+    box-shadow: var(--shadow-light);
+    text-shadow: var(--text-shadow-glow); /* Effet de glow pour le titre actif */
+}
+
+.sidebar-nav ul li a i {
+    margin-right: 12px; /* Espacement légèrement augmenté pour les icônes */
+    font-size: 1.3em; /* Taille des icônes plus grande */
+    color: var(--primary-light); /* Couleur par défaut des icônes */
+}
+
+.sidebar-nav ul li.active a i {
+    color: var(--accent); /* Couleur accentuée pour les icônes actives */
+}
+
+
+/* Icônes de remplacement si vous n'utilisez pas de bibliothèque d'icônes (Font Awesome, Lucide, etc.) */
+.icon-dashboard::before { content: '📊'; margin-right: 8px; }
+.icon-products::before { content: '📦'; margin-right: 8px; }
+.icon-suppliers::before { content: '🚚'; margin-right: 8px; }
+.icon-orders::before { content: '📋'; margin-right: 8px; }
+.icon-settings::before { content: '⚙️'; margin-right: 8px; }
+.icon-logout::before { content: '🚪'; margin-right: 8px; }
+
+.sidebar-footer {
+    margin-top: auto; /* Pousse le footer en bas de la sidebar */
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logout-btn {
+    background-color: var(--logout-red-base);
+    color: var(--text-light);
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color var(--transition-speed) ease, transform var(--transition-fast) ease;
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    font-weight: bold;
+}
+
+.logout-btn:hover {
+    background-color: var(--logout-red-hover);
+    transform: translateY(-2px);
+}
+.logout-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+
+/* --- Main Content (Contenu Principal) --- */
+.main-content {
+    flex-grow: 1; /* Prend l'espace restant */
+    flex-shrink: 1; /* Permet de rétrécir si nécessaire */
+    flex-basis: auto; /* La taille initiale est déterminée par son contenu ou son flex-grow */
+    background-color: var(--primary-dark);
+    display: flex;
+    flex-direction: column; /* Stack header and content vertically */
+    height: 100%; /* IMPORTANT: Occupe toute la hauteur disponible du parent (.app-container) */
+    overflow: hidden; /* Cache tout débordement direct, le défilement sera dans .content */
+    padding: 20px; /* Padding pour le contenu principal */
+}
+
+/* Custom scrollbar for Webkit browsers */
+.main-content::-webkit-scrollbar {
+    width: 8px;
+}
+.main-content::-webkit-scrollbar-track {
+    background: var(--primary-dark);
+    border-radius: 10px;
+}
+.main-content::-webkit-scrollbar-thumb {
+    background-color: var(--primary-light);
+    border-radius: 10px;
+    border: 2px solid var(--primary-dark);
+}
+.main-content::-webkit-scrollbar-thumb:hover {
+    background-color: var(--accent);
+}
+
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--primary-medium);
+    padding: 15px 25px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-light);
+    flex-shrink: 0; /* Empêche l'en-tête de rétrécir */
+}
+
+.header-left #currentDate {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--primary-light);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-profile {
+    font-weight: bold;
+    color: var(--text-light);
+}
+
+/* Boutons d'icônes dans l'en-tête (paramètres, accueil) */
+.settings-btn, .home-btn {
+    background-color: var(--primary-dark);
+    border: none;
+    border-radius: 8px;
+    padding: 8px;
+    cursor: pointer;
+    transition: background-color var(--transition-speed) ease, transform var(--transition-fast) ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.settings-btn svg, .home-btn svg {
+    fill: var(--primary-light); /* Couleur de l'icône */
+    width: 20px;
+    height: 20px;
+}
+
+.settings-btn:hover, .home-btn:hover {
+    background-color: #2a3d58; /* Léger changement de couleur au survol */
+    transform: translateY(-2px);
+}
+.settings-btn:active, .home-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+
+.content {
+    background-color: var(--primary-medium);
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: var(--shadow-light);
+    flex-grow: 1; /* Permet à .content de prendre l'espace vertical restant dans .main-content */
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* IMPORTANT: Le contenu du tableau de bord défile ici */
+    -webkit-overflow-scrolling: touch; /* Pour un défilement fluide sur les appareils tactiles */
+}
+
+/* Custom scrollbar for Webkit browsers for .content */
+.content::-webkit-scrollbar {
+    width: 8px;
+}
+.content::-webkit-scrollbar-track {
+    background: var(--primary-dark);
+    border-radius: 10px;
+}
+.content::-webkit-scrollbar-thumb {
+    background-color: var(--primary-light);
+    border-radius: 10px;
+    border: 2px solid var(--primary-dark);
+}
+.content::-webkit-scrollbar-thumb:hover {
+    background-color: var(--accent);
+}
+
+
+h1 {
+    color: var(--accent);
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 2.2em; /* Taille de titre légèrement plus grande */
+    text-align: center;
+    letter-spacing: 1px; /* Espacement pour le look techno */
+    text-shadow: var(--text-shadow-glow); /* Effet de glow pour les titres */
+}
+
+/* --- Nouvelle structure de grille pour le Tableau de Bord --- */
+.dashboard-layout { /* Cette classe enveloppe toutes les sections du tableau de bord */
+    display: grid;
+    /* Définition des zones de la grille */
+    grid-template-areas:
+        "stats-area stats-area"
+        "recent-activity-area chart-area"
+        "latest-orders-row latest-orders-row"; /* Nouvelle zone pour les 3 commandes */
+    grid-template-columns: 1fr 1fr; /* Deux colonnes de taille égale */
+    /* NOUVEAU : Hauteurs de ligne flexibles, mais avec des min-height sur les éléments */
+    grid-template-rows: auto 1fr auto; /* Activités/Chart prendront l'espace disponible (1fr) */
+    gap: 30px; /* Espace entre les éléments de la grille */
+    flex-grow: 1; /* Permet à la grille de prendre l'espace disponible dans .content */
+    height: 100%; /* S'assure que la grille remplit la hauteur restante dans .content */
+}
+
+/* Assignation des zones aux éléments existants */
+.stats-grid {
+    grid-area: stats-area;
+    display: grid; /* Transforme en sous-grille pour les cartes */
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Min-width plus petit, flexibilité */
+    gap: 15px; /* Espace réduit */
+    justify-content: center; /* Centre les cartes si elles ne remplissent pas toute la largeur */
+    align-items: center; /* Centre verticalement le contenu des cellules */
+}
+
+.recent-activity {
+    grid-area: recent-activity-area; /* Position dans la grille */
+    display: flex;
+    flex-direction: column;
+    min-height: 350px; /* Raccourci la min-height */
+}
+
+.stock-chart-container {
+    grid-area: chart-area; /* Position dans la grille */
+    display: flex; /* Utilise flexbox pour l'agencement interne */
+    flex-direction: column; /* Empile le titre et le graphique */
+    align-items: center; /* Centre le graphique horizontalement */
+    min-height: 350px; /* Raccourci la min-height */
+    overflow: hidden; /* Cache tout débordement du graphique lui-même */
+    padding: 20px; /* Conserve le padding de 20px */
+}
+
+/* Styles pour le titre du graphique à l'intérieur de son conteneur */
+.stock-chart-container h2 {
+    color: var(--primary-light);
+    margin-bottom: 15px; /* Garde l'espace entre le titre et le graphique */
+    font-size: 1.8em;
+    text-align: center;
+    text-shadow: var(--text-shadow-glow);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+    flex-shrink: 0; /* Empêche le titre de se compresser */
+    width: 100%; /* S'assure qu'il prend toute la largeur disponible */
+    box-sizing: border-box; /* Inclut padding dans la largeur */
+}
+
+
+/* Styles pour le graphique (Canvas) */
+#stockChartCanvas {
+    max-width: 100%;
+    max-height: 250px; /* Ajusté pour tenir dans le nouveau conteneur plus petit */
+    height: 100%; /* S'assure que le canvas prend toute la hauteur disponible jusqu'à max-height */
+    flex-grow: 1; /* Permet au canvas de prendre l'espace flexible restant */
+    flex-shrink: 1; /* Permet au canvas de rétrécir si nécessaire */
+}
+
+
+/* NOUVEAU : Conteneur pour le titre et les 3 cartes de commandes */
+.latest-orders-wrapper {
+    grid-area: latest-orders-row; /* Assigner à la nouvelle zone de grille */
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* S'assure que le wrapper remplit sa cellule de grille */
+    min-height: 200px; /* Hauteur minimale pour cette section */
+    background-color: var(--primary-dark); /* Utiliser le même fond que les autres sections */
+    border-radius: 15px;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.4);
+    padding: 20px;
+    border: 1px solid var(--primary-light);
+    margin-top: 30px; /* Ajoute de l'espace au-dessus de cette section */
+}
+
+.latest-orders-wrapper h2 { /* Style pour le titre des dernières commandes */
+    color: var(--primary-light);
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.8em;
+    text-align: center;
+    text-shadow: var(--text-shadow-glow);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+    flex-shrink: 0;
+}
+
+/* NOUVEAU : Grille pour les 3 cartes de commandes côte à côte */
+.latest-orders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 3 colonnes flexibles, min 280px */
+    gap: 20px; /* Espace entre les cartes */
+    flex-grow: 1; /* Permet à la grille des cartes de prendre l'espace restant */
+    overflow-y: auto; /* Permet le défilement si trop de commandes (bien qu'on n'en affichera que 3) */
+    padding-right: 5px; /* Espace pour la barre de défilement */
+}
+
+/* Style individuel pour chaque carte de commande */
+.order-card {
+    background-color: #17253e; /* Une couleur un peu différente pour la carte elle-même */
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Espace le contenu verticalement */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    min-height: 150px; /* Hauteur minimale pour chaque carte */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.order-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 221, 255, 0.2);
+}
+
+.order-card .order-id {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--accent);
+    margin-bottom: 5px;
+}
+
+.order-card .order-date {
+    font-size: 0.8em;
+    color: var(--primary-light);
+    margin-bottom: 10px;
+}
+
+.order-card .order-products-summary {
+    font-size: 0.9em;
+    color: var(--text-light);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; /* Force sur une ligne */
+    margin-bottom: 10px;
+}
+
+.order-card .order-total {
+    font-size: 1em;
+    font-weight: bold;
+    color: var(--success-color); /* Vert pour le total */
+    text-align: right;
+}
+
+/* Styles pour les sections individuelles (Stats, Activités, Graphique) */
+.stat-card,
+.recent-activity,
+.stock-chart-container {
+    background-color: var(--primary-dark); /* Un fond légèrement plus sombre pour les cartes internes */
+    border-radius: 15px;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.4); /* Ombre interne subtile */
+    border: 1px solid var(--primary-light); /* Bordure légère */
+}
+
+
+/* --- Styles pour les Cartes Statistiques (Aperçu du Stock) --- */
+.stat-card {
+    padding: 10px; /* RÉDUCTION DU PADDING pour rendre les cartes plus petites */
+    text-align: center;
+    transition: transform var(--transition-speed) ease, border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    display: flex; /* Utilise flexbox pour centrer le contenu */
+    flex-direction: column;
+    justify-content: center; /* Centre verticalement */
+    align-items: center; /* Centre horizontalement */
+    height: 100%; /* S'assure que la carte remplit sa cellule de grille */
+    min-height: 100px; /* Minimum pour ne pas être trop écrasé */
+}
+
+.stat-card:hover {
+    transform: translateY(-5px) scale(1.01); /* Effet "pop" réduit */
+    border-color: var(--accent);
+    box-shadow: 0 8px 20px rgba(0, 221, 255, 0.2);
+}
+
+.stat-card .value {
+    font-size: 2.0em; /* Légèrement réduit encore */
+    font-weight: 700;
+    color: var(--accent);
+    margin-top: 0px;
+    margin-bottom: 2px;
+    text-shadow: var(--text-shadow-glow);
+    line-height: 1.1;
+    white-space: nowrap; /* Empêche le nombre de se casser */
+}
+.stat-card .label {
+    font-size: 0.75em; /* Légèrement réduit */
+    color: var(--primary-light);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase; /* Pour un look plus propre */
+}
+
+
+/* --- Styles de la section Activités Récentes & Dernières Commandes --- */
+.recent-activity h2 {
+    color: var(--primary-light);
+    font-size: 1.8em;
+    text-align: center;
+    text-shadow: var(--text-shadow-glow);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+    flex-shrink: 0;
+}
+
+.stock-chart-container h2 { /* H2 for .latest-orders-wrapper is now separated */
+    color: var(--primary-light);
+    margin-top: 0;
+    font-size: 1.8em;
+    text-align: center;
+    text-shadow: var(--text-shadow-glow);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+    flex-shrink: 0;
+}
+
+/* Padding spécifique pour le h2 des activités récentes si besoin d'ajustement */
+.recent-activity h2 {
+    margin-bottom: 15px; /* Garde l'espace sous le titre des activités */
+}
+
+
+.activity-list {
+    list-style: none;
+    padding: 10px;
+    margin: 0;
+    flex-grow: 1; /* Prend l'espace disponible dans sa section-card */
+    overflow-y: auto; /* IMPORTANT: Ajoute une barre de défilement verticale pour la liste */
+    padding-right: 5px;
+}
+/* Custom scrollbar for activity-list */
+.activity-list::-webkit-scrollbar {
+    width: 5px; /* Barre de défilement plus fine */
+}
+.activity-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+.activity-list::-webkit-scrollbar-thumb {
+    background-color: var(--primary-light);
+    border-radius: 10px;
+    border: 1px solid var(--primary-dark);
+}
+.activity-list::-webkit-scrollbar-thumb:hover {
+    background-color: var(--accent);
+}
+
+
+/* MISE À JOUR MAJEURE POUR LE FORMAT DES ÉLÉMENTS DE LISTE */
+.activity-item, .product-item {
+    display: grid;
+    grid-template-columns: 1fr auto; /* Nom prend l'espace, date à droite */
+    align-items: start;
+    padding: 8px 0;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.1);
+    font-size: 0.88em;
+    min-height: 40px; /* Minimum pour ne pas écraser le contenu */
+}
+
+.activity-item:last-child, .product-item:last-child {
+    border-bottom: none;
+}
+
+.activity-item .details, .product-item .details {
+    display: flex;
+    flex-direction: column; /* Les détails sont empilés verticalement */
+    color: var(--text-light);
+    overflow: hidden; /* Important pour la troncature du texte */
+}
+
+.activity-item .name, .product-item .name {
+    font-weight: 500;
+    margin-bottom: 3px;
+    color: var(--primary-light);
+    white-space: nowrap; /* Force le nom du produit/commande sur une seule ligne */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Ajoute "..." si le nom est trop long */
+}
+
+.activity-item .quantity-price, .product-item .quantity-price {
+    font-size: 0.8em;
+    color: rgba(255, 255, 255, 0.7);
+    white-space: nowrap; /* Force quantité/prix sur une seule ligne */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Ajoute "..." si trop long */
+}
+
+.activity-item .quantity-price span, .product-item .quantity-price span {
+    font-weight: bold;
+    color: var(--accent);
+}
+
+.activity-item .status-products { /* Conteneur pour statut et résumé des produits de la commande */
+    display: flex; /* Utilise flexbox pour aligner le badge et le texte sur la même ligne */
+    align-items: center; /* Aligne verticalement au centre */
+    white-space: nowrap; /* Empêche le wrapping du conteneur entier */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Si le statut + texte sont trop longs */
+    font-size: 0.8em; /* Réduit la taille pour que tout tienne */
+}
+
+.activity-item .status-products .product-summary-text {
+    flex-grow: 1; /* Prend l'espace restant */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 5px;
+    color: rgba(255, 255, 255, 0.7); /* Couleur plus subtile pour le résumé */
+}
+
+.activity-item .date, .product-item .date {
+    font-size: 0.65em;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: right;
+    white-space: nowrap;
+    margin-left: 10px;
+    align-self: flex-start;
+    flex-shrink: 0; /* Empêche la date de rétrécir */
+}
+
+
+/* --- Barre d'Actions (Ajouter, Rechercher, Filtrer) --- */
+.actions-bar {
+    display: flex;
+    flex-wrap: wrap; /* Permet le retour à la ligne */
+    gap: 15px; /* Espacement entre les éléments */
+    margin-bottom: 20px;
+    align-items: center;
+    justify-content: flex-start; /* Aligne les éléments à gauche */
+}
+
+/* Boutons généraux de la barre d'actions (Ajouter, Réinitialiser Filtres) */
+.actions-bar .add-btn,
+.actions-bar .go-to-list-btn,
+.actions-bar .action-btn { /* Style général des boutons d'action */
+    background: linear-gradient(135deg, var(--accent) 0%, var(--primary-light) 100%); /* Dégradé stylisé */
+    color: var(--primary-dark); /* Texte sombre sur fond clair */
+    padding: 12px 25px; /* Padding généreux */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.8px; /* Espacement des lettres pour un look moderne */
+    box-shadow: var(--button-shadow-light); /* Ombre par défaut */
+    transition: all var(--transition-speed) ease;
+}
+
+.actions-bar .add-btn:hover,
+.actions-bar .go-to-list-btn:hover,
+.actions-bar .action-btn:hover {
+    background: linear-gradient(135deg, #00b8cc 0%, #519cb5 100%); /* Dégradé légèrement plus sombre au survol */
+    transform: translateY(-3px); /* Effet "flottant" */
+    box-shadow: var(--button-shadow-hover); /* Ombre plus prononcée */
+}
+.actions-bar .add-btn:active,
+.actions-bar .go-to-list-btn:active,
+.actions-bar .action-btn:active {
+    transform: translateY(0); /* Retour à la position normale au clic */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Ombre réduite au clic */
+}
+
+.actions-bar .search-input,
+.actions-bar select {
+    padding: 10px 15px;
+    border: 2px solid var(--primary-light); /* Bordure un peu plus épaisse */
+    border-radius: 8px;
+    background-color: var(--primary-dark);
+    color: var(--text-light);
+    flex-grow: 1; /* Prend l'espace disponible */
+    min-width: 200px;
+    max-width: 300px; /* Largeur maximale pour ne pas être trop large */
+    box-sizing: border-box;
+    transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+
+.actions-bar .search-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+.actions-bar .search-input:focus,
+.actions-bar select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 10px rgba(0, 221, 255, 0.2);
+}
+
+/* --- Data Table (Tableau de Données) --- */
+.data-table-container {
+    border-radius: 8px;
+    box-shadow: var(--shadow-light);
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Bordure subtile autour du tableau */
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: separate; /* Permet d'avoir des coins arrondis */
+    border-spacing: 0; /* Supprime l'espace entre les cellules */
+    min-width: 800px; /* Assure une largeur minimale pour la lisibilité */
+}
+
+.data-table th,
+.data-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-light); /* Assure que le texte du tableau est clair */
+}
+
+.data-table thead th {
+    background-color: var(--primary-dark);
+    color: var(--primary-light);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+/* Coins arrondis pour l'en-tête du tableau */
+.data-table thead th:first-child { border-top-left-radius: 8px; }
+.data-table thead th:last-child { border-top-right-radius: 8px; }
+
+.data-table tbody tr {
+    background-color: #0f1c33;
+    transition: background-color 0.2s ease;
+}
+
+.data-table tbody tr:nth-child(even) {
+    background-color: #17253e; /* Légère variation pour les lignes paires */
+}
+
+.data-table tbody tr:hover {
+    background-color: #111b2d; /* Couleur au survol des lignes */
+}
+
+.data-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.data-table .actions {
+    display: flex;
+    gap: 8px; /* Espacement légèrement réduit entre les boutons d'action */
+    justify-content: flex-start;
+    min-width: 150px;
+}
+
+/* --- Styles pour les Boutons Modifier et Supprimer (Réglé !) --- */
+.data-table tbody tr td .actions .edit-btn,
+.data-table tbody tr td .actions .delete-btn,
+.data-table tbody tr td .actions .info-btn { /* Ajout de info-btn */
+    padding: 9px 20px; /* Padding ajusté pour un meilleur équilibre */
+    border: none;
+    border-radius: 25px; /* Encore plus arrondi, effet pilule accentué */
+    font-weight: 600; /* Plus gras */
+    cursor: pointer;
+    font-size: 0.9em; /* Taille de police légèrement plus grande */
+    text-transform: uppercase;
+    letter-spacing: 1px; /* Espacement des lettres plus prononcé */
+    color: var(--text-light); /* Texte clair */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Transitions pour tous les effets */
+    transition: all var(--transition-speed) ease-in-out;
+}
+
+/* Bouton Modifier */
+.data-table tbody tr td .actions .edit-btn {
+    background: linear-gradient(145deg, var(--edit-button-start) 0%, var(--edit-button-end) 100%);
+    box-shadow: 0 6px 18px rgba(0, 188, 212, 0.4); /* Ombre plus intense */
+}
+
+.data-table tbody tr td .actions .edit-btn:hover {
+    background: linear-gradient(145deg, var(--edit-button-end) 0%, var(--edit-button-start) 100%); /* Inversion du dégradé au survol */
+    transform: translateY(-4px) scale(1.03); /* Effet de flottement et léger agrandissement plus marqué */
+    box-shadow: 0 10px 30px rgba(0, 188, 212, 0.6); /* Ombre plus prononcée */
+    text-shadow: var(--text-shadow-glow); /* Effet de glow sur le texte au survol */
+}
+.data-table tbody tr td .actions .edit-btn:active {
+    transform: translateY(0) scale(0.97); /* Effet de "presse" au clic plus prononcé */
+    box-shadow: 0 3px 10px rgba(0, 188, 212, 0.2);
+}
+
+/* Bouton Supprimer */
+.data-table tbody tr td .actions .delete-btn {
+    background: linear-gradient(145deg, var(--delete-button-start) 0%, var(--delete-button-end) 100%);
+    box-shadow: 0 6px 18px rgba(239, 71, 111, 0.4); /* Ombre plus intense */
+}
+
+.data-table tbody tr td .actions .delete-btn:hover {
+    background: linear-gradient(145deg, var(--delete-button-end) 0%, var(--delete-button-start) 100%); /* Inversion du dégradé au survol */
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 10px 30px rgba(239, 71, 111, 0.6);
+    text-shadow: var(--text-shadow-glow); /* Effet de glow sur le texte au survol */
+}
+.data-table tbody tr td .actions .delete-btn:active {
+    transform: translateY(0) scale(0.97);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Bouton Info/Voir (pour les commandes par exemple) */
+.data-table tbody tr td .actions .info-btn {
+    background: linear-gradient(145deg, var(--info-color) 0%, #118192 100%);
+    box-shadow: 0 6px 18px rgba(23, 162, 184, 0.4);
+}
+.data-table tbody tr td .actions .info-btn:hover {
+    background: linear-gradient(145deg, #118192 0%, var(--info-color) 100%);
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 10px 30px rgba(23, 162, 184, 0.6);
+    text-shadow: var(--text-shadow-glow);
+}
+.data-table tbody tr td .actions .info-btn:active {
+    transform: translateY(0) scale(0.97);
+    box-shadow: 0 3px 10px rgba(23, 162, 184, 0.2);
+}
+
+
+/* --- Messages (Chargement, Erreur, Pas de Données) --- */
+.no-data-message,
+.loading-message,
+.error-message {
+    text-align: center;
+    padding: 20px;
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+}
+
+.error-message {
+    color: var(--danger-color);
+    font-weight: bold;
+}
+
+
+/* --- Styles pour les Badges de Statut --- */
+.status-badge {
+    display: inline-block;
+    padding: 7px 14px; /* Padding légèrement ajusté */
+    border-radius: 20px; /* Effet pilule */
+    font-size: 0.75em; /* Taille de police légèrement plus petite */
+    font-weight: 600; /* Plus gras */
+    text-transform: uppercase;
+    color: var(--primary-dark); /* Texte toujours foncé par défaut */
+    min-width: 95px; /* Largeur minimale légèrement augmentée pour l'uniformité */
+    text-align: center;
+    line-height: 1.2;
+    white-space: nowrap; /* Empêche le texte de passer à la ligne */
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); /* Ombre plus prononcée */
+    transition: all var(--transition-speed) ease; /* Transition pour les changements subtils */
+}
+
+/* Couleurs spécifiques pour les statuts (utilisant les variables) */
+.status-encours { /* <-- NOM DE CLASSE CORRIGÉ ICI */
+    background-color: rgb(227, 255, 67); /* Jaune pour "en cours" */
+    color: var(--primary-dark); /* Texte sombre sur jaune */
+}
+
+.status-enattente { /* <-- NOM DE CLASSE CORRIGÉ ICI */
+    background-color: orange; /* Orange pour "en attente" */
+    color: white; /* Texte blanc pour meilleure lisibilité sur orange */
+}
+
+.status-annulee { 
+    background-color: var(--danger-color); /* Rouge pour "annulée" */
+    color: white; /* Texte blanc sur rouge */
+}
+
+.status-livree { 
+    background-color: var(--success-color); /* Vert pour "livrée" */
+    color: white; /* Texte blanc sur vert */
+}
+
+/* Fallback pour les statuts non définis */
+.status-unknown { background-color: #6c757d; }
+
+
+/* --- Formulaires (Ajout/Modification) --- */
+.form-container {
+    background-color: var(--primary-medium);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: var(--shadow-light);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+    color: var(--text-light); /* Assure que le texte du formulaire est clair */
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--primary-light);
+    font-weight: 500;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="date"],
+.form-group input[type="password"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--primary-dark);
+    border-radius: 8px;
+    background-color: var(--primary-dark);
+    color: var(--text-light);
+    font-size: 1em;
+    outline: none;
+    transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    box-sizing: border-box; /* Crucial pour que le padding n'augmente pas la largeur */
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 10px rgba(0, 221, 255, 0.2);
+}
+
+/* Boutons de soumission de formulaire */
+.form-container .save-btn,
+.form-container .cancel-btn {
+    width: 100%; /* Prend toute la largeur */
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: all var(--transition-speed) ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 10px; /* Espace entre les boutons et le formulaire */
+}
+
+.form-container .save-btn {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--primary-light) 100%);
+    color: var(--primary-dark);
+    box-shadow: var(--button-shadow-light);
+}
+
+.form-container .save-btn:hover {
+    background: linear-gradient(135deg, #00b8cc 0%, #519cb5 100%);
+    transform: translateY(-3px);
+    box-shadow: var(--button-shadow-hover);
+}
+.form-container .save-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.form-container .cancel-btn {
+    background-color: #dc3545; /* Gris pour annuler */
+    color: var(--text-light);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.form-container .cancel-btn:hover {
+    background-color: #c82333;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+.form-container .cancel-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+/* --- Styles pour les Listes de Produits dans les Commandes --- */
+.product-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.product-item {
+    padding: 4px 0; /* Légèrement plus d'espace */
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.1);
+    font-size: 0.95em;
+    color: rgba(255, 255, 255, 0.8); /* Texte un peu moins vif */
+}
+
+.product-item:last-child {
+    border-bottom: none;
+}
+
+
+/* --- Responsive Adjustments (Adaptation Mobile/Tablette) --- */
+@media (max-width: 1024px) {
+    /* Pour les écrans de taille moyenne (tablettes), la grille du tableau de bord passe en une seule colonne */
+    .dashboard-layout {
+        grid-template-columns: 1fr; /* Tous les éléments s'empilent en une seule colonne */
+        grid-template-areas:
+            "stats-area"
+            "recent-activity-area"
+            "chart-area"
+            "latest-orders-row"; /* Nouvelle zone pour les commandes */
+        gap: 20px; /* Espace réduit pour les écrans plus petits */
+    }
+
+    .app-container {
+        flex-direction: column;
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
+        overflow-y: auto;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 10px 0;
+        box-shadow: none;
+    }
+
+    .sidebar-header {
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+    }
+
+    .sidebar-nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    .sidebar-nav ul li {
+        margin-bottom: 5px;
+    }
+
+    .sidebar-nav ul li a {
+        padding: 8px 12px;
+        font-size: 0.9em;
+        margin: 0 5px;
+    }
+
+    .sidebar-nav ul li a i {
+        margin-right: 5px;
+    }
+
+    .sidebar-footer {
+        border-top: none;
+        padding: 10px;
+    }
+
+    .main-content {
+        padding: 15px;
+    }
+
+    .main-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 15px;
+    }
+
+    .header-right {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .actions-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .actions-bar .add-btn,
+    .actions-bar .go-to-list-btn,
+    .actions-bar .search-input,
+    .actions-bar select,
+    .actions-bar .action-btn {
+        width: 100%;
+        max-width: none;
+    }
+
+    .data-table-container {
+        overflow-x: auto;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+
+    .data-table .actions {
+        flex-direction: column;
+        gap: 5px;
+        min-width: unset;
+    }
+
+    .data-table .actions button {
+        margin: 0;
+        width: 100%;
+    }
+
+    .form-container {
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    /* Sur mobile, les sections du tableau de bord peuvent être un peu grandes */
+    .activity-list {
+        max-height: 280px; /* Ajuste la hauteur max pour mobile */
+    }
+    #stockChartCanvas {
+        height: 250px; /* Ajusté pour mobile */
+    }
+    /* Adapte les cartes de commande pour mobile */
+    .latest-orders-grid {
+        grid-template-columns: 1fr; /* Une seule colonne sur mobile */
+    }
+}
+
+@media (max-width: 768px) {
+    /* Ajustements supplémentaires pour les très petits écrans */
+    .stat-card .value { /* Cible spécifiquement la valeur du stat-card */
+        font-size: 2.0em; /* Maintenir la taille pour les petits écrans */
+    }
+
+    .stat-card .label {
+        font-size: 0.7em;
+    }
+
+    h1 {
+        font-size: 1.6em; /* Réduit la taille du titre principal */
+    }
+}

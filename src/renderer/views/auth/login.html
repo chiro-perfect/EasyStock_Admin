@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyStock - Connexion Admin</title>
+    <!-- Lien vers Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Lien vers votre fichier CSS spécifique à la connexion -->
+    <link rel="stylesheet" href="../../assets/css/login.css">
+</head>
+<body>
+    <main class="login-container">
+        <div class="login-box">
+            <div class="logo-container">
+                <img src="../../assets/images/logoSS.png" alt="EasyStock Logo" class="logo-static">
+                <h1>EasyStock <span class="admin-label">ADMIN</span></h1>
+                <p class="app-description">Interface d'administration pour la gestion des stocks</p>
+            </div>
+
+            <!-- Div pour afficher les messages de succès ou d'erreur -->
+            <!-- Note: le style "display: none;" sera retiré par le JS quand un message est affiché -->
+            <div id="notification" class="message-container" style="display: none;"></div>
+
+            <form id="loginForm" method="POST" class="login-form">
+                <div class="input-wrapper">
+                    <i class="fas fa-user"></i>
+                    <input type="text" name="username" id="username" placeholder=" " required>
+                    <label for="username">Nom d'utilisateur</label>
+                </div>
+                
+                <div class="input-wrapper">
+                    <i class="fas fa-lock"></i>
+                    <!-- Le champ de mot de passe est de type 'password' pour masquer les caractères -->
+                    <input type="password" name="password" id="password" placeholder=" " required>
+                    <label for="password">Mot de passe</label>
+                    <!-- Pas d'icône d'œil ni de fonctionnalité de basculement, le MDP est toujours masqué -->
+                </div>
+                
+                <button type="submit" class="login-button">
+                    <span>Se connecter</span>
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Script principal de la page de connexion -->
+    <script src="../../js/auth/modules/core/login.js"></script>
+    
+    <!-- Pas de script togglePasswordVisibility séparé ou inline car la fonctionnalité est supprimée -->
+</body>
+</html>

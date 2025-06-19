@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord - EasyStock Admin</title>
+    <link rel="stylesheet" href="../../assets/css/dashboard.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Barre latérale (Sidebar) -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <img src="../../assets/images/logo.png" class="logo1" alt="EasyStock Logo">
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><a href="../admin/dashboard.html"><i class="icon-dashboard"></i> Tableau de bord</a></li>
+                    <li><a href="../admin/produits/list.html"><i class="icon-products"></i> Produits</a></li>
+                    <li><a href="../fournisseurs/list.html"><i class="icon-suppliers"></i> Fournisseurs</a></li>
+                    <li><a href="../commandes/list.html"><i class="icon-orders"></i> Commandes</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Contenu principal (Main Content) -->
+        <div class="main-content">
+            <header class="main-header">
+                <div class="header-left">
+                    <span id="currentDate"></span>
+                </div>
+                <div class="header-right">
+                    <span class="user-profile">Admin</span>
+                  
+                    <button class="logout-btn" onclick="logout()">Déconnexion</button>
+                </div>
+            </header>
+
+            <div class="content">
+                <h1>Tableau de Bord</h1>
+                
+                <!-- NOUVEAU CONTENEUR DE GRILLE POUR LE TABLEAU DE BORD -->
+                <div class="dashboard-layout">
+                    <!-- Statistiques du tableau de bord -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="value" id="totalProducts">0</div>
+                            <div class="label">Total Produits</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="value" id="totalOrders">0</div>
+                            <div class="label">Total Commandes</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="value" id="totalSuppliers">0</div>
+                            <div class="label">Total Fournisseurs</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="value" id="lowStockProducts">0</div>
+                            <div class="label">Produits en faible stock</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="value" id="totalRevenue">0.00€</div>
+                            <div class="label">Revenus Totaux (Livrées)</div>
+                        </div>
+                    </div>
+
+                    <!-- Activités Récentes (maintenant dans son propre section-card avec un id pour le ciblage CSS) -->
+                    <div class="recent-activity section-card">
+                        <h2>Activités Récentes</h2>
+                        <ul class="activity-list" id="recentActivitiesList">
+                            <li>Chargement des activités...</li>
+                        </ul>
+                    </div>
+
+                    <!-- Graphique de stock par catégorie (maintenant dans son propre section-card avec un id pour le ciblage CSS) -->
+                    <div class="stock-chart-container section-card">
+                        <h2>Stock par Catégorie</h2>
+                        <canvas id="stockChartCanvas"></canvas>
+                        <p id="chartMessage" style="text-align: center; color: var(--primary-light); margin-top: 10px; display: none;">Chargement du graphique...</p>
+                    </div>
+
+                    <!-- NOUVEAU: Section pour les 3 dernières commandes en cartes individuelles -->
+                    <div class="latest-orders-wrapper">
+                        <h2>Dernières Commandes</h2>
+                        <div class="latest-orders-grid" id="latestOrdersGrid">
+                            <!-- Les 3 dernières commandes seront chargées ici par JavaScript -->
+                            <div class="order-card section-card">
+                                <p>Chargement de la commande...</p>
+                            </div>
+                            <div class="order-card section-card">
+                                <p>Chargement de la commande...</p>
+                            </div>
+                            <div class="order-card section-card">
+                                <p>Chargement de la commande...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal personnalisé -->
+    <div id="modalOverlay" style="display: none;"></div>
+    <div id="customModal" style="display: none;"></div>
+
+    <!-- Inclure Chart.js pour les graphiques -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Votre script principal du tableau de bord -->
+    <script src="../../js/auth/modules/core/dashboard.js"></script>
+</body>
+</html>

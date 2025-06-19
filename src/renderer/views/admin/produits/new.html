@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter un Produit - EasyStock Admin</title>
+    <link rel="stylesheet" href="../../../assets/css/dashboard.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <img src="../../../assets/images/logo.png" class="logo1" alt="EasyStock Logo">
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="../dashboard.html"><i class="icon-dashboard"></i> Tableau de bord</a></li>
+                    <li class="active"><a href="../produits/list.html"><i class="icon-products"></i> Produits</a></li>
+                    <li><a href="../../fournisseurs/list.html"><i class="icon-suppliers"></i> Fournisseurs</a></li>
+                    <li><a href="../../commandes/list.html"><i class="icon-orders"></i> Commandes</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+            </div>
+        </div>
+
+        <div class="main-content">
+            <header class="main-header">
+                <div class="header-left">
+                    <span id="currentDate"></span>
+                </div>
+                <div class="header-right">
+                    <span class="user-profile">Admin</span>
+                
+                    <button class="logout-btn" onclick="logout()">Déconnexion</button>
+                </div>
+            </header>
+
+            <div class="content">
+                <h1>Ajouter un nouveau Produit</h1>
+                
+                <div class="form-container">
+                    <form id="newProductForm">
+                        <div class="form-group">
+                            <label for="productName">Nom du Produit :</label>
+                            <input type="text" id="productName" name="productName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="productQuantity">Quantité :</label>
+                            <input type="number" id="productQuantity" name="productQuantity" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="productPrice">Prix (€) :</label>
+                            <input type="number" id="productPrice" name="productPrice" step="0.01" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="productCategory">Catégorie :</label>
+                            <select id="productCategory" name="productCategory" required>
+                                <option value="">-- Sélectionnez une catégorie --</option>
+                                <!-- Les options seront chargées dynamiquement par JavaScript -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="productSupplier">Fournisseur :</label>
+                            <select id="productSupplier" name="productSupplier" required>
+                                <option value="">-- Sélectionnez un fournisseur --</option>
+                                <!-- Les options seront chargées dynamiquement par JavaScript -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="createdAt">Date de Création :</label>
+                            <input type="date" id="createdAt" name="createdAt" disabled> <!-- Nouveau champ date, désactivé -->
+                        </div>
+                        <button type="submit" class="save-btn">Ajouter Produit</button>
+                        <dir></dir>
+                        <button class="save-btn" onclick="window.location.href='../produits/list.html'">Liste des produits</button>
+                    </form>
+                    <div id="formMessage" class="message-area" style="margin-top: 15px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal personnalisé -->
+    <div id="modalOverlay" style="display: none;"></div>
+    <div id="customModal" style="display: none;"></div>
+
+    <script src="../../../js/products/new.js"></script> 
+</body>
+</html>

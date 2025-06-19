@@ -1,0 +1,372 @@
+/* Variables pour les couleurs */
+:root {
+    /* Couleurs pour le thème sombre */
+    --primary-dark: #0b162c;     /* Fond principal foncé (le plus sombre, pour le corps) */
+    --primary-medium: #1c2942;   /* Fond des boîtes/éléments plus clairs (pour la boîte de login) */
+    --primary-light: #66b0cb;    /* Bordures, icônes, textes secondaires (pour les bordures d'input, icônes par défaut) */
+    --accent: #00ddff;           /* Couleur d'accentuation vive (boutons, focus, icône logo) */
+    --text-light: #ffffff;       /* Texte clair (pour la plupart des textes) */
+    --text-dark: #333333;        /* Texte foncé (sur accent) */
+
+    /* Couleurs pour les messages (succès, erreur, info) */
+    --success-color: #28a745;    /* Vert pour succès */
+    --danger-color: #dc3545;     /* Rouge pour erreur */
+    --warning-color: #ffc107;    /* Jaune/Orange pour avertissement */
+    --info-color: #17a2b8;       /* Bleu-cyan pour information */
+
+    /* Ombres et transitions */
+    --shadow-subtle: 0 5px 15px rgba(0, 0, 0, 0.2); /* Ombre légère pour les éléments */
+    --shadow-accent: 0 8px 20px rgba(0, 221, 255, 0.3); /* Ombre plus marquée pour le survol/focus */
+    --transition-speed: 0.3s;    /* Vitesse standard des transitions pour uniformité */
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(0, 221, 255, 0.4); }
+    70% { box-shadow: 0 0 0 20px rgba(0, 221, 255, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 221, 255, 0); }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+@keyframes slideIn {
+    0% { transform: translateX(100%) scale(0.7); opacity: 0; }
+    50% { transform: translateX(-10%) scale(1.1); }
+    100% { transform: translateX(0) scale(1); opacity: 1; }
+}
+
+@keyframes slideOut {
+    0% { transform: translateX(0) scale(1); opacity: 1; }
+    100% { transform: translateX(100%) scale(0.7); opacity: 0; }
+}
+
+@keyframes progress {
+    from { width: 100%; }
+    to { width: 0%; }
+}
+
+@keyframes iconBounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+/* Styles globaux pour le corps de la page de login */
+body {
+    font-family: 'Poppins', sans-serif; /* Police suggérée qui ressemble à celle des images */
+    background-color: var(--primary-dark); /* Couleur de fond principale sombre */
+    color: var(--text-light); /* Couleur du texte par défaut */
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    transition: background-color var(--transition-speed) ease; /* Transition douce pour le fond */
+    display: flex; /* Utilise Flexbox pour centrer le contenu */
+    justify-content: center; /* Centre horizontalement */
+    align-items: center;     /* Centre verticalement */
+    min-height: 100vh;       /* Assure que le body prend au moins toute la hauteur de la vue */
+}
+
+/* Conteneur principal de la page de login */
+.login-container {
+    min-height: 100vh; /* Permet au conteneur de prendre toute la hauteur */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-dark); /* Le fond de ce conteneur correspond au body pour un effet sans bordure extérieure */
+    padding: 20px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* Boîte de connexion (le formulaire central visible) */
+.login-box {
+    background-color: var(--primary-medium); /* Fond de la boîte de login, plus clair que le body */
+    padding: 40px;
+    border-radius: 15px; /* Coins arrondis, comme dans l'image */
+    width: 100%;
+    max-width: 400px; /* Largeur maximale pour la boîte de login */
+    box-shadow: var(--shadow-subtle); /* Ombre discrète */
+    animation: fadeIn 0.6s ease-out; /* Animation d'apparition */
+    box-sizing: border-box;
+    text-align: center; /* Centre le contenu textuel et les éléments inline-block */
+}
+
+/* Conteneur du logo et du titre "EasyStock" */
+.logo-container {
+    text-align: center;
+    margin-bottom: 40px; /* Espace sous le logo et le titre */
+}
+
+/* Styles pour le logo statique (logoSS.png) */
+.logo-static {
+    width: 150px;   /* Largeur désirée pour un petit carré */
+    height: 150px;  /* Hauteur désirée pour un petit carré */
+    object-fit: contain; /* Assure que l'image entière est visible à l'intérieur du carré, sans déformation */
+    margin: 0 auto 10px; /* Centrage horizontal et un peu moins d'espace en dessous pour rapprocher du texte */
+    display: block; /* Permet à `margin: auto` de fonctionner pour le centrage */
+}
+
+/* Style pour le label "ADMIN" */
+.admin-label {
+    font-size: 0.6em; /* Plus petit que le titre principal */
+    font-weight: 5000;
+    color: var(--primary-light); /* Une couleur subtile, par exemple */
+    margin-left: 8px; /* Un peu d'espace entre EasyStock et ADMIN */
+    padding: 4px 8px;
+    border: 1px solid var(--primary-light);
+    border-radius: 5px;
+    vertical-align: middle; /* Aligne verticalement avec le texte du titre */
+}
+
+/* Description de l'application */
+.app-description {
+    font-size: 0.85em;
+    color: var(--primary-light);
+    margin-top: 10px;
+    margin-bottom: 20px;
+    opacity: 0.8;
+}
+
+
+/* Le cercle bleu avec l'icône de flèche (gardé au cas où une autre icône serait utilisée dans un design futur) */
+/* Ce bloc ne sera pas appliqué à logoSS.png */
+.logo-animation {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    background-color: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulse 2s infinite;
+}
+
+.logo-animation i {
+    font-size: 2.5rem;
+    color: var(--primary-dark);
+    animation: bounce 2s infinite;
+}
+
+.logo-container h1 { /* Titre "EasyStock" */
+    font-size: 1.8rem;
+    color: var(--text-light);
+    font-weight: 600;
+    margin: 0;
+    display: inline-block; /* Permet d'aligner le span admin-label à côté */
+}
+
+
+/* Formulaire de connexion */
+.login-form {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Wrapper pour chaque champ de saisie (input avec son icône et label) */
+.input-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px; /* Espacement entre les champs */
+}
+
+/* Icônes à l'intérieur des champs de saisie (ex: utilisateur, cadenas) */
+.input-wrapper i {
+    position: absolute;
+    left: 15px; /* Positionnement à gauche de l'input */
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-light); /* Couleur de l'icône au repos */
+    transition: all var(--transition-speed) ease;
+    font-size: 16px;
+    z-index: 2; /* S'assure que l'icône est visible */
+}
+
+/* Styles des champs de saisie (input type="text", type="password") */
+.input-wrapper input {
+    width: 100%;
+    height: 50px; /* Hauteur fixe pour les inputs */
+    padding: 0 15px 0 45px; /* Padding pour l'icône gauche et le texte */
+    background-color: var(--primary-dark); /* Fond sombre pour les inputs */
+    border: 1px solid var(--primary-medium); /* Bordure fine et assortie au fond de la boîte */
+    border-radius: 8px; /* Coins arrondis des inputs */
+    color: var(--text-light);
+    font-size: 14px;
+    transition: all var(--transition-speed) ease;
+    box-sizing: border-box;
+}
+
+/* Ajustement spécifique pour le champ de mot de passe pour laisser de la place à l'icône "œil" */
+.input-wrapper input[type="password"] {
+    padding-right: 45px; /* Augmente le padding à droite pour que le texte ne se superpose pas à l'icône */
+}
+
+/* Styles des labels flottants */
+.input-wrapper label {
+    position: absolute;
+    left: 45px; /* Position initiale du label, aligné avec le début du texte de l'input */
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-light); /* Couleur du label au repos */
+    transition: all var(--transition-speed) ease;
+    pointer-events: none; /* Permet de cliquer sur l'input à travers le label */
+    z-index: 1; /* Sous l'icône */
+    background-color: transparent; /* Pas de fond quand le label est à l'intérieur */
+    padding: 0;
+}
+
+/* Effet de transformation du label au focus ou quand l'input contient du texte */
+.input-wrapper input:focus ~ label,
+.input-wrapper input:not(:placeholder-shown) + label {
+    top: -12px; /* Remonte au-dessus de l'input */
+    left: 15px; /* Se décale légèrement à gauche */
+    font-size: 12px;
+    background-color: var(--primary-medium); /* Fond derrière le label quand il flotte */
+    border-radius: 4px;
+    color: var(--accent); /* Couleur d'accentuation pour le label flottant */
+    transform: translateY(0);
+    padding: 0 5px; /* Petit padding pour le fond du label */
+    z-index: 3; /* S'assure que le label flottant est au-dessus de tout */
+}
+
+/* Effets de focus sur l'input */
+.input-wrapper input:focus {
+    border-color: var(--accent); /* Bordure accentuée au focus */
+    box-shadow: 0 0 10px rgba(0, 221, 255, 0.2); /* Ombre de focus */
+    outline: none; /* Supprime l'outline bleu par défaut des navigateurs */
+}
+
+.input-wrapper input:focus ~ i {
+    color: var(--accent); /* L'icône gauche change aussi de couleur au focus */
+}
+
+/* Icône de basculement de visibilité du mot de passe (l'œil) */
+/* Ciblée directement via sa classe, car la structure HTML a été modifiée */
+.password-toggle {
+    position: absolute;
+    right: 8px; /* POSITIONNEMENT À L'EXTRÊME DROITE - Ajusté pour l'aligner avec la croix */
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--primary-light); /* Couleur de l'œil au repos */
+    transition: all var(--transition-speed) ease;
+    font-size: 16px; /* Assurez-vous que la taille est cohérente */
+    z-index: 3; /* Assure que l'œil est au-dessus de l'input et du label */
+    display: flex; /* Rend l'élément flex */
+    align-items: center; /* Centre verticalement le contenu */
+    justify-content: center; /* Centre horizontalement le contenu */
+    width: 24px;   /* Définit une largeur fixe */
+    height: 24px;  /* Définit une hauteur fixe */
+    padding: 0;    /* Supprime tout padding interne pour ne pas augmenter la zone de clic */
+    box-sizing: content-box; /* S'assure que width/height s'appliquent au contenu, pas au padding/border */
+}
+
+.password-toggle:hover {
+    color: var(--accent); /* Change de couleur au survol */
+}
+
+/* Bouton de connexion */
+.login-button {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--accent); /* Couleur unie d'accentuation comme l'image */
+    color: var(--text-dark); /* Texte sombre sur le bouton clair pour contraste */
+    border: none;
+    border-radius: 8px; /* Coins arrondis du bouton */
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Espacement si une icône est ajoutée dans le bouton */
+    transition: all var(--transition-speed) ease;
+    box-shadow: var(--shadow-subtle); /* Ombre douce */
+}
+
+.login-button:hover {
+    transform: translateY(-2px); /* Léger effet de soulèvement au survol */
+    box-shadow: var(--shadow-accent); /* Ombre d'accentuation plus prononcée au survol */
+}
+
+/* Styles pour les messages de notification (succès, erreur) */
+.message-container {
+    position: fixed; /* Position fixe dans la fenêtre */
+    top: 20px;
+    right: 20px;
+    z-index: 9999; /* Toujours au-dessus des autres éléments */
+    animation: slideIn 0.5s ease-out forwards; /* Animation d'apparition */
+}
+
+.success-message, .error-message {
+    background: rgba(28, 41, 66, 0.95); /* Fond semi-transparent */
+    backdrop-filter: blur(10px); /* Effet de flou derrière le message */
+    padding: 15px 25px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transform-origin: right; /* Point d'origine pour l'animation de slide */
+    position: relative;
+    overflow: hidden;
+}
+
+.success-message {
+    border-left: 4px solid var(--success-color); /* Bordure gauche verte */
+    color: var(--success-color); /* Texte vert */
+}
+
+.error-message {
+    border-left: 4px solid var(--danger-color); /* Bordure gauche rouge */
+    color: var(--danger-color); /* Texte rouge */
+    animation: shake 0.5s ease-in-out; /* Animation de secousse pour l'erreur */
+}
+
+.success-message::after, .error-message::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: currentColor; /* Barre de progression utilise la couleur du texte (verte ou rouge) */
+    animation: progress 5s linear forwards; /* Animation de la barre de progression qui se vide */
+}
+
+.message-hide {
+    animation: slideOut 0.5s ease-in forwards; /* Animation de masquage */
+}
+
+.success-message i, .error-message i {
+    font-size: 20px;
+    animation: iconBounce 1s ease infinite; /* Animation de l'icône dans le message */
+}
+
+/* Styles pour le texte "software-only" (s'il est présent dans votre HTML) */
+.software-only {
+    margin-top: 20px;
+    color: var(--text-light);
+    opacity: 0.7;
+    font-size: 14px;
+}

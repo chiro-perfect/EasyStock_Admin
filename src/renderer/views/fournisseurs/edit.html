@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier un Fournisseur - EasyStock Admin</title>
+    <link rel="stylesheet" href="../../assets/css/dashboard.css">
+    <style>
+        /* Styles spécifiques à cette page pour un meilleur espacement et visibilité */
+        .form-container {
+            background-color: var(--primary-medium);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-light);
+            margin-top: 20px;
+            max-width: 600px; /* Ajusté pour une meilleure lisibilité des formulaires */
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--text-light);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group input[type="number"],
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid var(--primary-light);
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            box-sizing: border-box; /* Pour inclure padding et border dans la largeur */
+        }
+
+        /* Styles pour les boutons d'action */
+        .action-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+
+        .save-btn {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .save-btn:hover {
+            background-color: #218838; /* Darker green */
+        }
+
+        .cancel-btn {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .cancel-btn:hover {
+            background-color: #bd2130; /* Darker red */
+        }
+
+        .message-area {
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+            display: none; /* Masqué par défaut */
+        }
+
+        .message-area.success {
+            background-color: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
+        }
+
+        .message-area.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-color: #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Barre latérale (Sidebar) -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <img src="../../assets/images/logo.png" class="logo1" alt="EasyStock Logo">
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="../admin/dashboard.html"><i class="icon-dashboard"></i> Tableau de bord</a></li>
+                    <li><a href="../produits/list.html"><i class="icon-products"></i> Produits</a></li>
+                    <li class="active"><a href="../fournisseurs/list.html"><i class="icon-suppliers"></i> Fournisseurs</a></li>
+                    <li><a href="../commandes/list.html"><i class="icon-orders"></i> Commandes</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Contenu principal (Main Content) -->
+        <div class="main-content">
+            <header class="main-header">
+                <div class="header-left">
+                    <span id="currentDate"></span>
+                </div>
+                <div class="header-right">
+                    <span class="user-profile">Admin</span>
+                    <button class="logout-btn" onclick="logout()">Déconnexion</button>
+                </div>
+            </header>
+
+            <div class="content">
+                <h1>Modifier un Fournisseur</h1>
+                <div class="form-container">
+                    <form id="editSupplierForm">
+                        <div class="form-group">
+                            <label for="supplierId">ID Fournisseur :</label>
+                            <input type="text" id="supplierId" name="supplierId" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="supplierName">Nom du Fournisseur :</label>
+                            <input type="text" id="supplierName" name="supplierName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="supplierContact">Contact :</label>
+                            <input type="email" id="supplierContact" name="supplierContact" required placeholder="Ex: email@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="supplierAddress">Adresse :</label>
+                            <input type="text" id="supplierAddress" name="supplierAddress" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="createdAt">Créé le :</label>
+                            <input type="text" id="createdAt" name="createdAt" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="updatedAt">Dernière Mise à Jour :</label>
+                            <input type="text" id="updatedAt" name="updatedAt" readonly>
+                        </div>
+                        <button type="submit" class="action-btn save-btn">Mettre à Jour le Fournisseur</button>
+                        <button type="button" class="action-btn cancel-btn" onclick="window.location.href='./list.html'">Annuler</button>
+                    </form>
+                    <div id="formMessage" class="message-area" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../js/fournisseurs/edit.js"></script>
+</body>
+</html>

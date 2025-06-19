@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Fournisseurs - EasyStock Admin</title>
+    <link rel="stylesheet" href="../../assets/css/dashboard.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Barre latérale (Sidebar) -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <img src="../../assets/images/logo.png" class="logo1" alt="EasyStock Logo">
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="../admin/dashboard.html"><i class="icon-dashboard"></i> Tableau de bord</a></li>
+                    <li><a href="../../views/admin/produits/list.html"><i class="icon-products"></i> Produits</a></li>
+                    <li class="active"><a href="../fournisseurs/list.html"><i class="icon-suppliers"></i> Fournisseurs</a></li>
+                    <li><a href="../commandes/list.html"><i class="icon-orders"></i> Commandes</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Contenu principal (Main Content) -->
+        <div class="main-content">
+            <header class="main-header">
+                <div class="header-left">
+                    <span id="currentDate"></span>
+                </div>
+                <div class="header-right">
+                    <span class="user-profile">Admin</span>
+                
+                    <button class="logout-btn" onclick="logout()">Déconnexion</button> 
+                </div>
+            </header>
+
+            <div class="content">
+                <h1>Gestion des Fournisseurs</h1>
+                
+                <div class="actions-bar">
+                    <button class="add-btn" onclick="window.location.href='../fournisseurs/new.html'">Ajouter un nouveau fournisseur</button>
+                    <input type="text" id="supplierSearch" placeholder="Rechercher un fournisseur..." class="search-input">
+                </div>
+
+                <div class="data-table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID Fournisseur</th>
+                                <th>Nom du Fournisseur</th>
+                                <th>Contact</th> 
+                                <th>Adresse</th>
+                                <th>Créé le</th> 
+                                <th>Dernière Mise à Jour</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="suppliersTableBody">
+                            <!-- Les fournisseurs seront chargés ici par JavaScript -->
+                            <tr>
+                                <td colspan="7" class="no-data-message">Chargement des fournisseurs...</td> 
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal personnalisé -->
+    <div id="modalOverlay" style="display: none;"></div>
+    <div id="customModal" style="display: none;"></div>
+
+    <script src="../../js/fournisseurs/list.js"></script>
+</body>
+</html>
